@@ -37,8 +37,8 @@ public class RotateVector2Node : Unit
         });
         outputTrigger = ControlOutput("outputTrigger");
 
-        vectorValue  = ValueInput<InputActionAsset>("vector", null);
-        angleValue = ValueInput<string>("angle", String.Empty);
+        vectorValue  = ValueInput<Vector2>("vector", Vector2.zero);
+        angleValue = ValueInput<float>("angle", 0);
         resultValue = ValueOutput<Vector2>("result", (flow) => output);
 
         Requirement(vectorValue, inputTrigger);
