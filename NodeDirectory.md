@@ -19,6 +19,7 @@ your prac or assignment framework code for you to use. You are also welcome to u
 * [Vector2](#vector2)
 * [Input (Custom)](#input-custom)
 
+---
 ## Event Nodes
 
 ### On Start ##
@@ -29,6 +30,7 @@ your prac or assignment framework code for you to use. You are also welcome to u
 
 ### Collsion Events ##
 
+---
 ## Variable Nodes
 
 ## Control Nodes
@@ -42,6 +44,7 @@ The main control nodes we will be using are listed below.
 
 ### For loop
 
+---
 ## Formula Nodes
 
 General information about formuola nodes can be found in the [Unity documentation](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.7/manual/vs-formula.html). 
@@ -51,6 +54,7 @@ The main control nodes we will be using are listed below.
 
 ### Multiply node
 
+---
 ## Transform
 
 ### Get Position/Rotation/Scale (Local / Global)
@@ -61,10 +65,12 @@ The main control nodes we will be using are listed below.
 
 ### Rotate
 
+---
 ## Time
 
 ### Get Delta Time
 
+---
 ## Vector2
 
 ### Megnitude
@@ -75,6 +81,7 @@ The main control nodes we will be using are listed below.
 
 ### IsOnLeft (Custom)
 
+---
 ## Input (Custom)
 
 ### Get Input Button
