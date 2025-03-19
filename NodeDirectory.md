@@ -11,6 +11,11 @@ your prac or assignment framework code for you to use. You are also welcome to u
 ## Contents
 
 * [Event Nodes](#event-nodes)
+* [Variable Nodes](#variable-nodes)
+* [Control Nodes](#control-nodes)
+* [Formula Nodes](#formula-nodes)
+* [Transform](#transform)
+* [Time](#time)
 * [Vector2](#vector2)
 * [Input (Custom)](#input-custom)
 
