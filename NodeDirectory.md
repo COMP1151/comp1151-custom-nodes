@@ -33,6 +33,11 @@ your prac or assignment framework code for you to use. You are also welcome to u
 ---
 ## Variable Nodes
 
+### Get Variable
+
+### Set Variable
+
+---
 ## Control Nodes
 
 General information about control nodes can be found in the [Unity documentation](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.7/manual/vs-control.html). 
