@@ -220,14 +220,61 @@ The main control nodes we will be using are listed below.
 
 These nodes allow you to change the control flow of your scripts, allowing them to branch off and converge to do different things based on various conditions. Without them, your scripts would probably be a lot less responsive.
 
-Links: 
-
-
 ### If node
+This node allows you to change the control flow based on a condition. Basically, that means you can create branching paths in your scripts. You can generally read an if statement as: “If the given condition is true, do something, otherwise, do something else.”
+
+You do not necessarily need to assign both output pipes to any other nodes. If you don’t, the control flow will end if the script tries to go down the unassigned true/false path.
+
+Inputs: 
+Enter (Flow): The node to execute before this one.
+Condition (Boolean): The condition used to choose between the two paths.
+
+Outputs: 
+True (Flow): The next node to execute if the condition is true.
+False (Flow): The next node to execute if the condition is false.
+
+Use Case Examples:
 
 ### Select node
+This node outputs one of two values based on a condition. If the condition is true, it will output the first value passed in, if it’s false, it will output the other.
+
+Both value inputs must be assigned some value, otherwise, this node will not work.
+
+Inputs: 
+Condition (Boolean): The condition used to choose the output.
+True (Object): The value to output if the condition is true.
+False (Object): The value to output if the condition is false.
+
+Outputs: 
+Selection (Object): The value to output.
+
+Use Case Examples:
 
 ### For loop
+This node allows you to repeat a certain section of your graph a specified number of times. Anything attached to the body output will be repeated.
+
+The way it works is that you provide it with a first value, last value and step value. It also separately keeps track of an index value (this can be accessed from the index output). The loop will then execute these steps:
+1. Set the index value equal to the first value.
+2. Check if the index is less than the last value.
+   a. If it is less, continue to step 3.
+   b. If it is greater than or equal to, the loop ends and the script executes the exit output.
+3. The body output is executed once.
+4. Add the step value to the index.
+5. Repeat from step 2.
+
+Inputs: 
+Enter (Flow): The node to execute before this one.
+First (Integer): The starting value for the index.
+Last (Integer): The ending value for the index.
+Step (Integer): The amount to add to the index in each loop iteration.
+
+Outputs: 
+Exit (Flow): The node to execute after the loop completes.
+Body (Flow): The node to execute each time the loop repeats.
+Index (Integer): The current index of the loop.
+
+Use Case Examples:
+- Spawning multiple prefabs at once. For example, if you wanted to spawn ten enemies simultaneously, it would be quite inefficient to create ten instantiate nodes, so instead, you can create a for loop that repeats the instantiate node ten times.
 
 ---
 ## Formula Nodes
@@ -297,6 +344,7 @@ A % B (Object): The remainder after dividing.
 
 ---
 ## Transform
+This component is responsible for the position, rotation and scale of your GameObjects. All GameObjects should have one automatically if they exist within a scene. It has quite a few nodes and functions for manipulating these three aspects of your objects.
 
 ### Get Position/Rotation/Scale (Local / Global)
 
