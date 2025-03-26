@@ -3,6 +3,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// IsOnLeftNode - Custom Visual Scritping Node
+/// by Malcolm Ryan
+///
+/// This node tests whether one vector is to the left of another.
+/// 
+/// Licensed under Creative Commons License CC0 Universal
+/// https://creativecommons.org/publicdomain/zero/1.0/
+
+namespace WordsOnPlay.Nodes {
+
 public class IsOnLeftNode : Unit
 {
     [DoNotSerialize]
@@ -46,4 +56,6 @@ public class IsOnLeftNode : Unit
 
         Assignment(inputTrigger,resultValue);
     }
+}
+
 }

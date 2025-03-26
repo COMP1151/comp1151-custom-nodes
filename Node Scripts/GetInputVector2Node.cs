@@ -3,9 +3,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GetInputFloatNode : Unit
-{
+/// GetInputVector2Node - Custom Visual Scritping Node
+/// by Malcolm Ryan
+///
+/// This node reads the value of an 2D vector action input (such as a joystick or a WASD composite).
+/// 
+/// Licensed under Creative Commons License CC0 Universal
+/// https://creativecommons.org/publicdomain/zero/1.0/
 
+namespace WordsOnPlay.Nodes {
+
+public class GetInputVector2Node : Unit
+{
     [DoNotSerialize]
     public ControlInput inputTrigger;
 
@@ -24,7 +33,7 @@ public class GetInputFloatNode : Unit
     [DoNotSerialize]
     public ValueOutput resultValue;
 
-    private float output;
+    private Vector2 output;
 
     protected override void Definition()
     {
@@ -45,7 +54,7 @@ public class GetInputFloatNode : Unit
                 throw new ArgumentException($"{input.name}.{mapping.name} does not include the action '{flow.GetValue<string>(actionValue)}'");
             }
 
-            output = action.ReadValue<float>();
+            output = action.ReadValue<Vector2>();
             return outputTrigger;
         });
         outputTrigger = ControlOutput("outputTrigger");
@@ -53,7 +62,7 @@ public class GetInputFloatNode : Unit
         inputValue = ValueInput<InputActionAsset>("input asset", null);
         mappingValue = ValueInput<string>("mapping", String.Empty);
         actionValue = ValueInput<string>("action", String.Empty);
-        resultValue = ValueOutput<float>("result", (flow) => output);
+        resultValue = ValueOutput<Vector2>("result", (flow) => output);
 
         Requirement(inputValue, inputTrigger);
         Requirement(mappingValue, inputTrigger);
@@ -62,4 +71,6 @@ public class GetInputFloatNode : Unit
 
         Assignment(inputTrigger,resultValue);
     }
+}
+
 }
