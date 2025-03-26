@@ -28,6 +28,8 @@ Read more about events [here](https://docs.unity3d.com/Packages/com.unity.visual
 ### On Start ##
 This event triggers exactly once when the script is first enabled, before the On Update event. Usually, this will occur as soon as you start your game, but it can also trigger if you enable an object for the first time (using something like Set Active). Note this can only occur once, so if you disable the object and re-enable it again, it won’t trigger again.
 
+<img src="Images\Start Node.png">
+
 Inputs: 
 - None
 
@@ -36,6 +38,8 @@ Outputs:
 
 ### On Update ##
 This event triggers once every frame while the script is enabled. This is useful for any continuous or repeating things and will likely be the lifecycle event you use the most.
+
+<img src="Images\Update Node.png">
 
 Inputs: 
 - None
@@ -56,6 +60,8 @@ Read more about collision [here](https://docs.unity3d.com/6000.0/Documentation/M
 ### On Enter 2D ##
 This event occurs once each time a collision is detected. It can be triggered again with the same object if the colliders stop touching and collide again.
 
+<img src="Images\On Trigger Enter 2D Node.png">
+
 Inputs: 
 - Target (GameObject): If a GameObject is passed into this, the node will only execute when a collision with the specified GameObject is detected.
 
@@ -65,6 +71,8 @@ Outputs:
 
 ### On Exit 2D ##
 This event occurs once after two colliders stop colliding (in that they stop touching). It can be triggered again with the same object if the objects collide again and stop touching.
+
+<img src="Images\On Trigger Exit 2D Node.png">
 
 Inputs: 
 - Target (GameObject): If a GameObject is passed into this, the node will only execute when a collision with the specified GameObject is detected.
@@ -76,9 +84,11 @@ Outputs:
 ### On Stay 2D ##
 This event occurs every physics timestep (by default, 50 times per second) while two colliders are touching. More info [here](https://docs.unity3d.com/6000.0/Documentation/Manual/fixed-updates.html).
 
+<img src="Images\On Trigger Stay 2D Node.png">
+
 The script may stop detecting collisions if the object stops moving. This is because the rigidbody thinks it’s at rest and is put to [sleep](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Rigidbody2D-sleepMode.html). To disable this, go to the object’s Rigidbody 2D component and set its Sleeping Mode to Never Sleep.
 
-<image>
+<img src="Images\Never Sleep.png">
 
 Inputs: 
 - Target (GameObject): If a GameObject is passed into this, the node will only execute when a collision with the specified GameObject is detected.
@@ -91,8 +101,6 @@ Outputs:
 ## Collision Events
 These events will occur whenever a physical collision occurs between two non-trigger colliders. In this case, a collision can be defined as two colliders overlapping. One of the colliders must also be a dynamic collider, meaning it has a Rigidbody 2D component that is set to Dynamic mode.
 
-<image>
-
 The outputs of these nodes are quite extensive, containing all sorts of information about the collision that occurred. This is generally most useful for responding dynamically to collisions.
 
 Please note that there are 2D and 3D variants of these nodes. Make sure you are using the 2D ones.
@@ -101,6 +109,8 @@ Read more about collisions [here](https://docs.unity3d.com/6000.0/Documentation/
 
 ### On Enter 2D ##
 This event occurs once each time a collision is detected. It can be triggered again with the same object if the colliders stop touching and collide again.
+
+<img src="Images\On Collision Enter 2D Node.png">
 
 Inputs: 
 - Target (GameObject): If a GameObject is passed into this, the node will only execute when a collision with the specified GameObject is detected.
@@ -115,6 +125,8 @@ Outputs:
 
 ### On Exit 2D ##
 This event occurs once after two colliders stop colliding (in that they stop touching). It can be triggered again with the same object if the objects collide again and stop touching.
+
+<img src="Images\On Collision Enter 2D Node.png">
 
 Inputs: 
 Target (GameObject): If a GameObject is passed into this, the node will only execute when a collision with the specified GameObject is detected.
@@ -129,6 +141,8 @@ Outputs:
 
 ### On Stay 2D ##
 This event occurs every physics timestep (by default, 50 times per second) while two colliders are touching.
+
+<img src="Images\On Collision Stay 2D Node.png">
 
 Inputs: 
 Target (GameObject): If a GameObject is passed into this, the node will only execute when a collision with the specified GameObject is detected.
@@ -169,7 +183,7 @@ Read more about variables [here](https://docs.unity3d.com/Packages/com.unity.vis
 ### Get Variable ##
 This node is used to read the value of a variable. At the top, there is a dropdown menu that allows you to select the scope you would like to get the variable from.
 
-<Image>
+<img src="Images\Get Variable Node.png">
 
 Inputs: 
 - Name (String): The name of the variable to access.
@@ -180,7 +194,7 @@ Outputs:
 ### Set Variable ##
 This node is used to change the value of a variable. At the top, there is a dropdown menu that allows you to select the scope you would like to get the variable from.
 
-<Image>
+<img src="Images\Set Variable Node.png">
 
 Inputs: 
 - Assign (Flow): The node to execute before this one.
@@ -202,6 +216,8 @@ This node allows you to change the control flow based on a condition. Basically,
 
 You do not necessarily need to assign both output pipes to any other nodes. If you don’t, the control flow will end if the script tries to go down the unassigned true/false path.
 
+<img src="Images\If Node.png">
+
 Inputs: 
 - Enter (Flow): The node to execute before this one.
 - Condition (Boolean): The condition used to choose between the two paths.
@@ -214,6 +230,8 @@ Outputs:
 This node outputs one of two values based on a condition. If the condition is true, it will output the first value passed in, if it’s false, it will output the other.
 
 Both value inputs must be assigned some value, otherwise, this node will not work.
+
+<img src="Images\Select Node.png">
 
 Inputs: 
 - Condition (Boolean): The condition used to choose the output.
@@ -228,12 +246,14 @@ This node allows you to repeat a certain section of your graph a specified numbe
 
 The way it works is that you provide it with a first value, last value and step value. It also separately keeps track of an index value (this can be accessed from the index output). The loop will then execute these steps:
 1. Set the index value equal to the first value.
-2. Check if the index is less than the last value.
-   a. If it is less, continue to step 3.
+2. Check if the index is less than the last value.\
+   a. If it is less, continue to step 3.\
    b. If it is greater than or equal to, the loop ends and the script executes the exit output.
 3. The body output is executed once.
 4. Add the step value to the index.
 5. Repeat from step 2.
+
+<img src="Images\For Loop Node.png">
 
 Inputs: 
 - Enter (Flow): The node to execute before this one.
@@ -257,7 +277,7 @@ Read more about formulae and arithmetic [here](https://docs.unity3d.com/Packages
 ### Add Node ##
 Allows you to add values together. Note that this node allows you to control the number of inputs to add together (up to 10) using the input field near the top of the node. None of the other Math/Generic nodes let you do this.
 
-<image>
+<img src="Images\Add Node.png">
 
 Inputs: 
 - A (Object): The first value to add.
@@ -270,6 +290,8 @@ Outputs:
 ### Subtract Node ##
 Allows you to subtract one value from another.
 
+<img src="Images\Subtract Node.png">
+
 Inputs: 
 - A (Object): The value to subtract from.
 - B (Object): The value to subtract.
@@ -279,6 +301,8 @@ Outputs:
 
 ### Multiply Node ##
 Allows you to multiply two values.
+
+<img src="Images\Multiply Node.png">
 
 Inputs: 
 - A (Object): The first value to multiply.
@@ -290,6 +314,8 @@ Outputs:
 ### Divide Node ##
 Allows you to divide one value by another.
 
+<img src="Images\Divide Node.png">
+
 Inputs: 
 - A (Object): The value to divide.
 - B (Object): The value to divide by.
@@ -299,6 +325,8 @@ Outputs:
 
 ### Modulo Node ##
 Allows you to perform modulo arithmetic. It divides the first term by the second and outputs the remainder. It’s useful for looping counters or screen wrapping.
+
+<img src="Images\Modulo Node.png">
 
 Inputs: 
 - A (Object): The value to divide.
@@ -316,6 +344,8 @@ Read more about the transform component [here](https://docs.unity3d.com/6000.0/D
 ### Get Position ##
 Gets the specified object’s position in world space.
 
+<img src="Images\Get Position Node.png">
+
 Inputs: 
 - Target (Transform): The object to get the position from.
 
@@ -324,6 +354,8 @@ Outputs:
 
 ### Get Local Position ##
 Gets the specified object’s coordinate relative to its parent.
+
+<img src="Images\Get Local Position Node.png">
 
 Inputs: 
 - Target (Transform): The object to get the position from.
@@ -335,6 +367,8 @@ Outputs:
 Gets the specified object’s rotation in world space as a quaternion. A quaternion is basically just a representation of rotation.
 
 You can convert a Euler angle to a quaternion through the Quaternion: Euler node.
+
+<img src="Images\Get Rotation Node.png">
 
 Read more about quaternions and Euler angles [here](https://docs.unity3d.com/6000.0/Documentation/Manual/QuaternionAndEulerRotationsInUnity.html).
 
@@ -349,6 +383,8 @@ Gets the specified object’s rotation relative to its parent as a quaternion. A
 
 You can convert a Euler angle to a quaternion through the Quaternion: Euler node.
 
+<img src="Images\Get Local Rotation Node.png">
+
 Read more about quaternions and Euler angles [here](https://docs.unity3d.com/6000.0/Documentation/Manual/QuaternionAndEulerRotationsInUnity.html).
 
 Inputs: 
@@ -360,6 +396,8 @@ Outputs:
 ### Get Local Scale ##
 Gets the specified object’s scale relative to its parent. You may wonder why we don’t have a Get Scale node. It’s complicated, but the basic idea is that scale can be affected by rotation, so it cannot be properly represented as a Vector3. You can use the Transform: Get Lossy Scale node if you would like an approximation of scale in world space.
 
+<img src="Images\Get Local Scale Node.png">
+
 Inputs: 
 - Target (Transform): The object to get the scale from.
 
@@ -368,6 +406,8 @@ Outputs:
 
 ### Set Position ##
 Sets the specified object’s position in world space.
+
+<img src="Images\Set Position Node.png">
 
 Inputs: 
 - Set (Flow): The node to execute before this one.
@@ -380,6 +420,8 @@ Outputs:
 
 ### Set Local Position ##
 Sets the specified object’s coordinate relative to its parent.
+
+<img src="Images\Set Local Position Node.png">
 
 Inputs: 
 - Set (Flow): The node to execute before this one.
@@ -394,6 +436,8 @@ Outputs:
 Sets the specified object’s rotation in world space using a quaternion. A quaternion is basically just a representation of rotation.
 
 You can convert a Euler angle to a quaternion through the Quaternion: Euler node.
+
+<img src="Images\Set Rotation Node.png">
 
 Read more about quaternions and Euler angles [here](https://docs.unity3d.com/6000.0/Documentation/Manual/QuaternionAndEulerRotationsInUnity.html).
 
@@ -411,6 +455,8 @@ Sets the specified object’s rotation relative to its parent using a quaternion
 
 You can convert a Euler angle to a quaternion through the Quaternion: Euler node.
 
+<img src="Images\Set Local Rotation Node.png">
+
 Read more about quaternions and Euler angles [here](https://docs.unity3d.com/6000.0/Documentation/Manual/QuaternionAndEulerRotationsInUnity.html).
 
 Inputs: 
@@ -424,6 +470,8 @@ Outputs:
 
 ### Set Local Scale ##
 Sets the specified object’s scale, relative to its parent. There is no Set Scale function, but this node should cover all of your needs.
+
+<img src="Images\Set Local Scale Node.png">
 
 Inputs: 
 - Set (Flow): The node to execute before this one.
@@ -439,9 +487,11 @@ Moves a specified object by a certain distance. This differs from Set Position i
 
 There are multiple variants of this node that allow for different inputs. The Transform: Translate (Translation, RelativeTo) variant will be described here.
 
+<img src="Images\Translate Node.png">
+
 Translation can be applied locally (self) or relative to the world. When translating locally, the direction the object is facing is taken into account, while when translating relative to the world, the object’s current direction does not matter and the object will move based on world coordinates.
 
-<image>
+<img src="Images\LocalVsWorldTranslation.png">
 
 Inputs: 
 - Invoke (Flow): The node to execute before this one.
@@ -457,7 +507,7 @@ Applies a rotation to a specified object. As we’re only working in Unity 2D fo
 
 There are multiple variants of this node that allow for different inputs. The Transform: Rotate (Eulers, RelativeTo) variant will be described here.
 
-<Image of the correct node>
+<img src="Images\Rotate Node.png">
 
 Rotation can be applied locally (self) or relative to the world. When rotating locally, the direction the object is facing is taken into account, while when rotating relative to the world, the object’s current direction does not matter and the object will rotate based on world coordinates.
 
@@ -477,6 +527,8 @@ The time class allows you to interact with many different aspects of time within
 ### Get Delta Time
 Allows you to check the time interval between frames. Frame rate can be variable (as you may have experienced if you have a not-so-up-to-date PC and are trying to play an intensive game), so making things dependent on it can lead to unexpected behaviours at different frame rates, like the same characters/objects moving at different speeds or certain inputs and actions becoming impossible. Applying delta time to any frame rate-based actions (e.g. translating an object in the update event) will instead make them time-based and thus remove any frame rate discrepancies.
 
+<img src="Images\Get Delta Time Node.png">
+
 Inputs: 
 None
 
@@ -493,6 +545,8 @@ A Vector 2 is a representation of a 2D direction or a point. It’s basically ju
 ### Get Magnitude ##
 Gets the magnitude of a Vector 2. The magnitude is the length of the vector, represented as a singular number.
 
+<img src="Images\Get Magnitude Node.png">
+
 Inputs: 
 - Target (Vector 2): The vector to measure.
 
@@ -503,6 +557,8 @@ Outputs:
 Sets a vector’s magnitude to 1, whilst retaining its direction. We tend to want to normalise vectors when comparing or modifying them, as it brings them all to a consistent length while retaining their direction. Imagine trying to change the magnitude of a vector from 3.21511573 to 5. It would probably be easier to normalise it and multiply it by 5 than it would be to scale that starting value.
 
 Note that this is specifically the Vector2: Get Normalised node. There are other similarly-named nodes that do different things.
+
+<img src="Images\Get Normalized Node.png">
 
 Inputs: 
 - Target (Vector 2): The vector to normalise.
@@ -523,6 +579,8 @@ Read more about Game Objects [here](https://docs.unity3d.com/6000.0/Documentatio
 ### Set Active ##
 Sets the active state of an object. An inactive object will not be visible and its scripts and components will not function. If an object is a parent, its children will become active/inactive along with it.
 
+<img src="Images\Set Active Node.png">
+
 Inputs: 
 - Invoke (Flow): The node to execute before this one.
 - Target (Game Object): The Game Object to activate/deactivate.
@@ -537,6 +595,8 @@ This is a collection of functions and nodes to help visualise and debug your scr
 
 ### Log ##
 Prints a specified object to the console. You can print anything, as long as it can be represented as text.
+
+<img src="Images\Debug Log Node.png">
 
 Inputs: 
 - Invoke (Flow): The node to execute before this one.
