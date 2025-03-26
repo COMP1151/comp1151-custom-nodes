@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/117be40c-4a6c-4ceb-bbec-3fb97f31719e)# Recommended Components and Nodes
+# Recommended Components and Nodes
 
 Unity has a lot of different components and scripting nodes available. Finding the ones you need can prove very difficult, especially since there is very little documentation. 
 The official [Node reference](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.7/manual/vs-nodes-reference.html) page lists a handful of important nodes, 
