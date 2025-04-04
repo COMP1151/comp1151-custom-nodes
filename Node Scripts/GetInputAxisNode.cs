@@ -3,32 +3,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// GetInputButtonNode - Custom Visual Scritping Node
+/// GetInputAxisNode - Custom Visual Scritping Node
 /// by Malcolm Ryan
 ///
-/// This node detects whether a button action input has been pressed, held or released.
+/// This node reads the value of an axis action input.
 /// 
 /// Licensed under Creative Commons License CC0 Universal
 /// https://creativecommons.org/publicdomain/zero/1.0/
 
 namespace WordsOnPlay.Nodes {
 
-public class GetInputButtonNode : Unit
+public class GetInputAxisNode : Unit
 {
-    public enum ButtonResponse {
-        WasPressedThisFrame,
-        WasReleasedThisFrame,
-        IsPressed
-    }
 
     [DoNotSerialize]
     public ControlInput inputTrigger;
 
     [DoNotSerialize]
     public ControlOutput outputTrigger;
-
-    [DoNotSerialize]
-    public ValueInput buttonResponseValue;
 
     [DoNotSerialize]
     public ValueInput inputValue;
@@ -42,7 +34,7 @@ public class GetInputButtonNode : Unit
     [DoNotSerialize]
     public ValueOutput resultValue;
 
-    private bool output;
+    private float output;
 
     protected override void Definition()
     {
@@ -63,30 +55,15 @@ public class GetInputButtonNode : Unit
                 throw new ArgumentException($"{input.name}.{mapping.name} does not include the action '{flow.GetValue<string>(actionValue)}'");
             }
 
-            switch (flow.GetValue<ButtonResponse>(buttonResponseValue)) {
-
-                case ButtonResponse.WasPressedThisFrame:
-                    output = action.WasPressedThisFrame();
-                    break;
-
-                case ButtonResponse.WasReleasedThisFrame:
-                    output = action.WasReleasedThisFrame();
-                    break;
-
-                case ButtonResponse.IsPressed:
-                    output = action.IsPressed();
-                    break;
-            }
-
+            output = action.ReadValue<float>();
             return outputTrigger;
         });
         outputTrigger = ControlOutput("outputTrigger");
 
-        buttonResponseValue = ValueInput<ButtonResponse>("button response", ButtonResponse.IsPressed);
         inputValue = ValueInput<InputActionAsset>("input asset", null);
         mappingValue = ValueInput<string>("mapping", String.Empty);
         actionValue = ValueInput<string>("action", String.Empty);
-        resultValue = ValueOutput<bool>("result", (flow) => output);
+        resultValue = ValueOutput<float>("result", (flow) => output);
 
         Requirement(inputValue, inputTrigger);
         Requirement(mappingValue, inputTrigger);

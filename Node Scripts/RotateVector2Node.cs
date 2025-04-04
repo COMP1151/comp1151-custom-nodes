@@ -3,6 +3,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// RotateVector2Node - Custom Visual Scritping Node
+/// by Malcolm Ryan
+///
+/// This node rotates a Vector2 by a specified angle.
+/// 
+/// Licensed under Creative Commons License CC0 Universal
+/// https://creativecommons.org/publicdomain/zero/1.0/
+
+namespace WordsOnPlay.Nodes {
+
 public class RotateVector2Node : Unit
 {
     [DoNotSerialize]
@@ -47,4 +57,5 @@ public class RotateVector2Node : Unit
 
         Assignment(inputTrigger,resultValue);
     }
+}
 }

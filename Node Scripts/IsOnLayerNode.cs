@@ -3,17 +3,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// IsOnLeftNode - Custom Visual Scritping Node
+/// IsOnLayerNode - Custom Visual Scritping Node
 /// by Malcolm Ryan
 ///
-/// This node tests whether one vector is to the left of another.
+/// This node detects whether a GameObject is on one of the layers in the specified LayerMask.
 /// 
 /// Licensed under Creative Commons License CC0 Universal
 /// https://creativecommons.org/publicdomain/zero/1.0/
 
 namespace WordsOnPlay.Nodes {
 
-public class IsOnLeftNode : Unit
+public class IsOnLayerNode : Unit
 {
     [DoNotSerialize]
     public ControlInput inputTrigger;
@@ -22,10 +22,10 @@ public class IsOnLeftNode : Unit
     public ControlOutput outputTrigger;
 
     [DoNotSerialize]
-    public ValueInput vector1Value;
+    public ValueInput gameObjectValue;
 
     [DoNotSerialize]
-    public ValueInput vector2Value;
+    public ValueInput layerMaskValue;
 
     [DoNotSerialize]
     public ValueOutput resultValue;
@@ -34,24 +34,22 @@ public class IsOnLeftNode : Unit
 
     protected override void Definition()
     {
-        //The lambda to execute our node action when the inputTrigger port is triggered.
         inputTrigger = ControlInput("inputTrigger", (flow) =>
         {
-            //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
-            Vector2 a = flow.GetValue<Vector2>(vector1Value);
-            Vector2 b = flow.GetValue<Vector2>(vector2Value);
+            GameObject obj = flow.GetValue<GameObject>(gameObjectValue);
+            LayerMask layerMask = flow.GetValue<LayerMask>(layerMaskValue);
 
-            output = a.x * b.y < a.y * b.x;
+            output = (layerMask.value & (1 << obj.layer)) != 0;
             return outputTrigger;
         });
         outputTrigger = ControlOutput("outputTrigger");
 
-        vector1Value  = ValueInput<Vector2>("v1", Vector2.zero);
-        vector2Value  = ValueInput<Vector2>("v2", Vector2.zero);
+        gameObjectValue  = ValueInput<GameObject>("object");
+        layerMaskValue  = ValueInput<LayerMask>("layer mask");
         resultValue = ValueOutput<bool>("result", (flow) => output);
 
-        Requirement(vector1Value, inputTrigger);
-        Requirement(vector2Value, inputTrigger);
+        Requirement(gameObjectValue, inputTrigger);
+        Requirement(layerMaskValue, inputTrigger);
         Succession(inputTrigger, outputTrigger);
 
         Assignment(inputTrigger,resultValue);
