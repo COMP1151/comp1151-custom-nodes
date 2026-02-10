@@ -15,8 +15,8 @@ using UnityEngine.InputSystem;
 
 namespace WordsOnPlay.Nodes {
 
-[UnitTitle("Translate Rigidbody2D")]
-[UnitShortTitle("Translate")]
+[UnitTitle("Translate")]
+[UnitShortTitle("Translate Rigidbody2D")]
 [UnitCategory("COMP1151/Rigidbody2D")]
 public class TranslateRigidbody2D : Unit
 {
