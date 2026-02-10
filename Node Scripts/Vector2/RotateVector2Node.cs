@@ -6,19 +6,22 @@ using UnityEngine.InputSystem;
 /// RotateVector2Node - Custom Visual Scritping Node
 /// by Malcolm Ryan
 ///
-/// This node rotates a Vector2 by a specified angle.
+/// This node rotates a Vector2 by a specified angle (in degrees).
 /// 
 /// Licensed under Creative Commons License CC0 Universal
 /// https://creativecommons.org/publicdomain/zero/1.0/
 
 namespace WordsOnPlay.Nodes {
 
+[UnitTitle("Rotate")]
+[UnitShortTitle("Rotate Vector2")]
+[UnitCategory("COMP1151/Vector2")]
 public class RotateVector2Node : Unit
 {
-    [DoNotSerialize]
+    [DoNotSerialize, PortLabelHidden]
     public ControlInput inputTrigger;
 
-    [DoNotSerialize]
+    [DoNotSerialize, PortLabelHidden]
     public ControlOutput outputTrigger;
 
     [DoNotSerialize]
@@ -34,10 +37,8 @@ public class RotateVector2Node : Unit
 
     protected override void Definition()
     {
-        //The lambda to execute our node action when the inputTrigger port is triggered.
         inputTrigger = ControlInput("inputTrigger", (flow) =>
         {
-            //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
             Vector2 vector = flow.GetValue<Vector2>(vectorValue);
             float angle = flow.GetValue<float>(angleValue);
 

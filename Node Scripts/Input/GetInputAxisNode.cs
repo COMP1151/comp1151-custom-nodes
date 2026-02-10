@@ -3,12 +3,26 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GetInputVector2Node : Unit
+/// GetInputAxisNode - Custom Visual Scritping Node
+/// by Malcolm Ryan
+///
+/// This node reads the value of an axis action input.
+/// 
+/// Licensed under Creative Commons License CC0 Universal
+/// https://creativecommons.org/publicdomain/zero/1.0/
+
+namespace WordsOnPlay.Nodes {
+
+[UnitTitle("GetInputAxis")]
+[UnitShortTitle("GetInputAxis")]
+[UnitCategory("COMP1151/Input")]
+public class GetInputAxisNode : Unit
 {
-    [DoNotSerialize]
+
+    [DoNotSerialize,PortLabelHidden]
     public ControlInput inputTrigger;
 
-    [DoNotSerialize]
+    [DoNotSerialize,PortLabelHidden]
     public ControlOutput outputTrigger;
 
     [DoNotSerialize]
@@ -23,14 +37,12 @@ public class GetInputVector2Node : Unit
     [DoNotSerialize]
     public ValueOutput resultValue;
 
-    private Vector2 output;
+    private float output;
 
     protected override void Definition()
     {
-        //The lambda to execute our node action when the inputTrigger port is triggered.
         inputTrigger = ControlInput("inputTrigger", (flow) =>
         {
-            //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
             InputActionAsset input = flow.GetValue<InputActionAsset>(inputValue);
             InputActionMap mapping = input.FindActionMap(flow.GetValue<string>(mappingValue));
             if (mapping == null) 
@@ -44,7 +56,7 @@ public class GetInputVector2Node : Unit
                 throw new ArgumentException($"{input.name}.{mapping.name} does not include the action '{flow.GetValue<string>(actionValue)}'");
             }
 
-            output = action.ReadValue<Vector2>();
+            output = action.ReadValue<float>();
             return outputTrigger;
         });
         outputTrigger = ControlOutput("outputTrigger");
@@ -52,7 +64,7 @@ public class GetInputVector2Node : Unit
         inputValue = ValueInput<InputActionAsset>("input asset", null);
         mappingValue = ValueInput<string>("mapping", String.Empty);
         actionValue = ValueInput<string>("action", String.Empty);
-        resultValue = ValueOutput<Vector2>("result", (flow) => output);
+        resultValue = ValueOutput<float>("result", (flow) => output);
 
         Requirement(inputValue, inputTrigger);
         Requirement(mappingValue, inputTrigger);
@@ -61,4 +73,6 @@ public class GetInputVector2Node : Unit
 
         Assignment(inputTrigger,resultValue);
     }
+}
+
 }

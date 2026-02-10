@@ -13,12 +13,15 @@ using UnityEngine.InputSystem;
 
 namespace WordsOnPlay.Nodes {
 
+[UnitTitle("GetInputVector2")]
+[UnitShortTitle("GetInputVector2")]
+[UnitCategory("COMP1151/Input")]
 public class GetInputVector2Node : Unit
 {
-    [DoNotSerialize]
+    [DoNotSerialize,PortLabelHidden]
     public ControlInput inputTrigger;
 
-    [DoNotSerialize]
+    [DoNotSerialize,PortLabelHidden]
     public ControlOutput outputTrigger;
 
     [DoNotSerialize]
@@ -37,10 +40,8 @@ public class GetInputVector2Node : Unit
 
     protected override void Definition()
     {
-        //The lambda to execute our node action when the inputTrigger port is triggered.
         inputTrigger = ControlInput("inputTrigger", (flow) =>
         {
-            //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
             InputActionAsset input = flow.GetValue<InputActionAsset>(inputValue);
             InputActionMap mapping = input.FindActionMap(flow.GetValue<string>(mappingValue));
             if (mapping == null) 
