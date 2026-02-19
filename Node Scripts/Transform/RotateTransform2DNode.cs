@@ -38,7 +38,7 @@ public class RotateTransform2DNode : Unit
             //Making the resultValue equal to the input value from myValueA concatenating it with myValueB.
             Transform transform = flow.GetValue<Transform>(transformValue);
             float angle = flow.GetValue<float>(angleValue);
-            transform.Rotate(Vector2.up, angle);
+            transform.Rotate(Vector3.forward, angle);
             return outputTrigger;
         });
         outputTrigger = ControlOutput("outputTrigger");
