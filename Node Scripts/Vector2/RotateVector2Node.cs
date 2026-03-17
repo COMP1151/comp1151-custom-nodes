@@ -42,7 +42,7 @@ public class RotateVector2Node : Unit
             Vector2 vector = flow.GetValue<Vector2>(vectorValue);
             float angle = flow.GetValue<float>(angleValue);
 
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector2.up);
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             output = rotation * vector;
             return outputTrigger;
         });
