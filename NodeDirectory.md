@@ -51,6 +51,7 @@ your prac or assignment framework code for you to use. You are also welcome to u
    * [Get Rotation](#get-rotation)
    * [Get Local Scale](#get-local-scale)
    * [Set Position](#set-position)
+   * [Translate](#translate)
    * [Set Local Scale](#set-local-scale)
 * [Time](#time)
    * [Get Delta Time](#get-delta-time)
@@ -58,12 +59,14 @@ your prac or assignment framework code for you to use. You are also welcome to u
 * [Vector2](#vector2)
    * [Get Magnitude](#get-magnitude)
    * [Get Normalized](#get-normalized)
+   * [Signed Angle](#signed-angle)
 * [Debug](#debug)
    * [Log](#log)
 * [Custom Nodes](#custom-nodes)
    * [Translate Rigidbody 2D](#translate-rigidbody-2d)
    * [Rotate Rigidbody 2D](#rotate-rigidbody-2d)
    * [Rotate Transform 2D](#rotate-transform-2d)
+   * [Set Rotation Transform](#set-rotation-transform)
    * [Is On Layer](#is-on-layer)
 
 ---
@@ -72,7 +75,7 @@ You can think of lifecycle events as starting points within your scripts. They w
 
 Read more about events [here](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.9/manual/vs-events-reference.html).
 
-### On Start ##
+### On Start
 This event triggers exactly once when the script is first enabled, before the On Update event. Usually, this will occur as soon as you start your game, but it can also trigger if you enable an object for the first time (using something like Set Active). Note this can only occur once, so if you disable the object and re-enable it again, it won’t trigger again. This is often used to initialise settings or values in an object.
 
 ![On Start](./Images/Start%20Node.png)
@@ -88,7 +91,7 @@ Usage Example:
 
 ![On Start Example](./Images/OnStartExample.png)
 
-### On Update ##
+### On Update
 This event triggers once every frame while the script is enabled. This is useful for any continuous or repeating things and will likely be the lifecycle event you use the most. This can be influenced by framerate, so if something is framerate-sensitive, use FixedUpdate instead.
 
 ![On Update](./Images/Update%20Node.png)
@@ -104,7 +107,7 @@ Usage Example:
 
 ![On Update Example](./Images/OnUpdateExample.png)
 
-### On Fixed Update ##
+### On Fixed Update
 This event is similar to the Update event, but instead, it executes at a fixed time interval that is unaffected by framerate. By default, it executes every 0.02 seconds. This is generally used for physics calculations, as they should not be influenced by framerate.
 
 ![On Fixed Update](./Images/OnFixedUpdate.png)
@@ -120,7 +123,7 @@ Usage Example:
 
 ![On Fixed Update Example](./Images/OnFixedUpdateExample.png)
 
-### On Enable ##
+### On Enable
 This event is similar to the Start event, but instead, it executes every time the GameObject the script is attached to is enabled (you can see if an object is enabled by inspecting it and ), including at the start of the game. Like Start, this can be used to initialise settings or values, but can also be used to reset them whenever the object is re-enabled.
 
 ![On Enable](./Images/OnEnable.png)
@@ -136,7 +139,7 @@ Usage Example:
 
 ![On Enable](./Images/OnEnableExample.png)
 
-### On Destroy ##
+### On Destroy
 This event executes before the attached GameObject or component is destroyed. There are a few ways something can be destroyed, but the most common are the Destroy node and loading a different scene.
 
 ![On Destory](./Images/OnDestroy.png)
@@ -162,7 +165,7 @@ Please note that there are 2D and 3D variants of these nodes. Make sure you are 
 
 Read more about collision [here](https://docs.unity3d.com/6000.3/Documentation/Manual/collision-section.html).
 
-### On Trigger Enter 2D ##
+### On Trigger Enter 2D
 This event occurs once each time a collision is detected. It can be triggered again with the same object if the colliders stop touching and collide again.
 
 ![On Trigger Enter 2D](./Images/On%20Trigger%20Enter%202D%20Node.png)
@@ -179,7 +182,7 @@ Usage Example:
 
 ![On Trigger Enter 2D Example](./Images/OnTriggerEnter2DExample.png)
 
-### On Trigger Exit 2D ##
+### On Trigger Exit 2D
 This event occurs once after two colliders stop colliding (in that they stop touching). It can be triggered again with the same object if the objects collide again and stop touching.
 
 ![On Trigger Exit 2D](./Images/On%20Trigger%20Exit%202D%20Node.png)
@@ -195,7 +198,7 @@ Usage Example:
 
 ![On Trigger Exit 2D Example](./Images/OnTriggerExit2DExample.png)
 
-### On Trigger Stay 2D ##
+### On Trigger Stay 2D
 This event occurs every physics timestep (by default, 50 times per second) while two colliders are touching.
 
 ![On Trigger Stay 2D](./Images/On%20Trigger%20Stay%202D%20Node.png)
@@ -226,7 +229,7 @@ Please note that there are 2D and 3D variants of these nodes. Make sure you are 
 
 Read more about collisions [here](https://docs.unity3d.com/6000.3/Documentation/Manual/collision-section.html).
 
-### On Collision Enter 2D ##
+### On Collision Enter 2D
 This event occurs once each time a collision is detected. It can be triggered again with the same object if the colliders stop touching and collide again.
 
 ![On Collision Enter 2D](./Images/On%20Collision%20Enter%202D%20Node.png)
@@ -247,7 +250,7 @@ Usage Example:
 
 ![On Collision Enter 2D Example](./Images/OnCollisionEnter2DExample.png)
 
-### On Collision Exit 2D ##
+### On Collision Exit 2D
 This event occurs once after two colliders stop colliding (in that they stop touching). It can be triggered again with the same object if the objects collide again and stop touching.
 
 ![On Collision Exit 2D](./Images/On%20Collision%20Exit%202D%20Node.png)
@@ -268,7 +271,7 @@ Usage Example:
 
 ![On Collision Exit 2D Example](./Images/OnCollisionExit2DExample.png)
 
-### On Collision Stay 2D ##
+### On Collision Stay 2D
 This event occurs every physics timestep (by default, 50 times per second) while two colliders are touching.
 
 ![On Collision Stay 2D](./Images/On%20Collision%20Stay%202D%20Node.png)
@@ -314,7 +317,7 @@ Scopes:
 
 Read more about variables [here](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.9/manual/vs-variables.html).
 
-### Get Variable ##
+### Get Variable
 This node is used to read the value of a variable.
 
 ![Get Variable](./Images/Get%20Variable%20Node.png)
@@ -334,7 +337,7 @@ Usage Example:
 
 ![Get Variable Example](./Images/GetVariableExample.png)
 
-### Set Variable ##
+### Set Variable
 This node is used to change the value of a variable. At the top, there is a dropdown menu that allows you to select the scope you would like to get the variable from.
 
 ![Set Variable](./Images/Set%20Variable%20Node.png)
@@ -359,7 +362,7 @@ These nodes allow you to change the control flow of your scripts, allowing them 
 
 Read more about control nodes [here](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.9/manual/vs-control.html).
 
-### If ##
+### If
 This node allows you to change the control flow based on a condition. Basically, that means you can create branching paths in your scripts. You can generally read an if statement as: “If the given condition is true, do something, otherwise, do something else.”
 
 You do not necessarily need to assign both output pipes to any other nodes. If you don’t, the control flow will end if the script tries to go down the unassigned true/false path.
@@ -379,7 +382,7 @@ Usage Example:
 
 ![If Example](./Images/IfExample.png)
 
-### Select ##
+### Select
 This node outputs one of two values based on a condition. If the condition is true, it will output the first value passed in, if it’s false, it will output the other.
 
 Both value inputs must be assigned some value, otherwise, this node will not work.
@@ -399,7 +402,7 @@ Usage Example:
 
 ![Select Example](./Images/SelectExample.png)
 
-### For Loop ##
+### For Loop
 This node allows you to repeat a certain section of your graph a specified number of times. Anything attached to the body output will be repeated.
 
 The way it works is that you provide it with a first value, last value and step value. It also separately keeps track of an index value (this can be accessed from the index output). The loop will then execute these steps:
@@ -436,7 +439,7 @@ All objects that exist within a scene are Game Objects. This means these nodes a
 
 Read more about Game Objects [here](https://docs.unity3d.com/6000.3/Documentation/Manual/class-GameObject.html).
 
-### Set Active ##
+### Set Active
 This node allows you to enable/disable a GameObject. A disabled GameObject still exists, but cannot be interacted with (i.e. rendering, colliding, performing calculations, etc.) until it is enabled again. An enabled GameObject functions as normal. If an object is a parent, its children will become active/inactive along with it.
 
 ![Set Active](./Images/Set%20Active%20Node.png)
@@ -454,7 +457,7 @@ Usage Example:
 
 ![Set Active Example](./Images/SetActiveExample.png)
 
-### Destroy ##
+### Destroy
 This node can be used to completely remove a GameObject from the current execution of the game. If the GameObject was saved into the scene (i.e. not instantiated after the game has started), it will return after the current execution of the game ends or the scene is reloaded.
 
 This node has a variant that can be used to destroy a single component instead of a whole object. In this unit, you likely won’t need to use this, but it’s most useful when you need to construct and modify custom GameObjects during runtime.
@@ -473,7 +476,7 @@ Usage Example:
 
 ![Destroy Example](./Images/DestroyExample.png)
 
-### Instantiate ##
+### Instantiate
 This node is used to create instances of a prefab while the game is running. It is a very versatile node, commonly used for things like spawning enemies or pickups.
 
 Note that there are lots of variants of this node, but the main one we’ll be using is the “Game Object: Instantiate (Original)” variant.
@@ -493,7 +496,7 @@ Usage Example:
 
 ![Instantiate Example](./Images/InstantiateExample.png)
 
-### Find ##
+### Find
 Finds an object based on its name in the hierarchy. If there are multiple objects with the same name, it will find one of them, but the behaviour can be inconsistent. Generally try to avoid overusing this node if possible, as it can create very fragile dependencies.
 
 ![Find](./Images/Find.png)
@@ -511,7 +514,7 @@ Usage Example:
 
 ![Find Example](./Images/FindExample.png)
 
-### Find With Tag ##
+### Find With Tag
 Finds an object with the specified tag. If there are multiple objects with the same tag, it will find one of them, but the behaviour can be inconsistent. Generally try to avoid overusing this node if possible, as it can create very fragile dependencies.
 
 ![Find With Tag](./Images/FindWithTag.png)
@@ -534,7 +537,7 @@ Usage Example:
 ## Input Nodes
 These allow you to read player inputs from various devices, like controllers or keyboards. If you want to use any of these nodes in a script, the object the script is attached to must also have a Player Input component and a correctly configured Input Actions asset. More information [here](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.19/manual/PlayerInput.html). 
 
-### On Input System Event Button ##
+### On Input System Event Button
 This node simply triggers the connected node when an input action is performed. Input actions are created and mapped to a key/button via the Input Actions asset.
 
 ![On Input System Event Button](./Images/OnInputSystemEventButton.png)
@@ -554,7 +557,7 @@ Usage Example:
 
 ![On Input System Event Button Example](./Images/OnInputSystemEventButtonExample.png)
 
-### On Input System Event Float ##
+### On Input System Event Float
 Like the On Input System Event Button node, this node also triggers whenever an input action is performed. It also outputs a numerical value based on the input action bindings. This is most commonly used with a 1D binding, where positive and negative inputs are defined. A positive input will output 1 and a negative input will output -1.
 
 ![On Input System Event Float](./Images/OnInputSystemEventFloat.png)
@@ -575,7 +578,7 @@ Usage Example:
 
 ![On Input System Event Float Example](./Images/OnInputSystemEventFloatExample.png)
 
-### On Input System Event Vector 2 ##
+### On Input System Event Vector 2
 This node is used for reading 2D axes, like mouse coordinates or joystick positions and outputs a vector 2. x and y coordinates are stored in the vector 2’s x and y fields, accordingly.
 
 ![On Input System Event Vector 2](./Images/OnInputSystemEventVector2.png)
@@ -604,7 +607,7 @@ Note that there are multiple variants of these nodes. We will generally be using
 
 Read more about formulae and arithmetic [here](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.9/manual/vs-formula.html).
 
-### Add ##
+### Add
 Allows you to add values together. Note that this node allows you to control the number of inputs to add together (up to 10) using the input field near the top of the node. None of the other Math/Generic nodes let you do this.
 
 ![Add](./Images/Add%20Node.png)
@@ -623,7 +626,7 @@ Usage Example:
 
 ![Add Example](./Images/AddExample.png)
 
-### Subtract ##
+### Subtract
 Allows you to subtract one value from another.
 
 ![Subtract](./Images/Subtract%20Node.png)
@@ -640,7 +643,7 @@ Usage Example:
 
 ![Subtract Example](./Images/SubtractExample.png)
 
-### Multiply ##
+### Multiply
 Allows you to multiply two values.
 
 ![Multiply](./Images/Multiply%20Node.png)
@@ -657,7 +660,7 @@ Usage Example:
 
 ![Multiply Example](./Images/MultiplyExample.png)
 
-### Divide ##
+### Divide
 Allows you to divide one value by another.
 
 ![Divide](./Images/Divide%20Node.png)
@@ -674,7 +677,7 @@ Usage Example:
 
 ![Divide Example](./Images/DivideExample.png)
 
-### Modulo ##
+### Modulo
 Allows you to perform modulo arithmetic. It divides the first term by the second and outputs the remainder. It’s useful for looping counters or screen wrapping.
 
 ![Modulo](./Images/Modulo%20Node.png)
@@ -691,7 +694,7 @@ Usage Example:
 
 ![Modulo Exmaple](./Images/ModuloExample.png)
 
-### Formula ##
+### Formula
 This node allows you to write your own mathematical formula via text input. It can cover a lot of the same functionality as the other formula nodes. This could potentially be used if a formula is complex or difficult to wire up via individual nodes. Though, be aware that this node is not quite as performant as using your own nodes individually.
 
 Please refer to [this document](https://docs.unity3d.com/Packages/com.unity.visualscripting@1.9/manual/vs-formula.html) for more information regarding possible inputs, operators and functions the node can recognise.
@@ -722,7 +725,7 @@ This component is responsible for the position, rotation and scale of your GameO
 
 Read more about the transform component [here](https://docs.unity3d.com/6000.3/Documentation/Manual/class-Transform.html).
 
-### Get Position ##
+### Get Position
 Gets the specified object’s position in world space.
 
 ![Get Position](./Images/Get%20Position%20Node.png)
@@ -738,7 +741,7 @@ Usage Example:
 
 ![Get Position Example](./Images/GetPositionExample.png)
 
-### Get Rotation ##
+### Get Rotation
 Gets the specified object’s rotation in world space as a quaternion. A quaternion is basically just a representation of rotation.
 
 You can convert a Euler angle to a quaternion through the Quaternion: Euler node.
@@ -758,7 +761,7 @@ Usage Example:
 
 ![Get Rotation Example](./Images/GetRotationExample.png)
 
-### Get Local Scale ##
+### Get Local Scale
 Gets the specified object’s scale relative to its parent. You may wonder why we don’t have a Get Scale node. It’s complicated, but the basic idea is that scale can be affected by rotation, so it cannot be properly represented as a Vector3. You can use the Transform: Get Lossy Scale node if you would like an approximation of scale in world space.
 
 ![Get Local Scale](./Images/Get%20Local%20Scale%20Node.png)
@@ -774,7 +777,7 @@ Usage Example:
 
 ![Get Local Scale Example](./Images/GetLocalScaleExample.png)
 
-### Set Position ##
+### Set Position
 Sets the specified object’s position in world space. This effectively teleports the object to the given position, disregarding any collisions.
 
 ![Set Position](./Images/Set%20Position%20Node.png)
@@ -793,7 +796,25 @@ Usage Example:
 
 ![Set Position Example](./Images/SetPositionExample.png)
 
-### Set Local Scale ##
+### Translate
+This node moves the selected object by a specified amount from its current location. Note that this moves the object from its current position, which differentiates it from [Set Position](#set-position). This movement does not account for dynamic collisions, which may behave unexpectedly if encountered.
+
+![Translate](./Images/Translate%20Node.png)
+
+Inputs:
+- Invoke (Flow): The node to execute before this one.
+- Target (Transform): The object to move.
+- Translation (Vector 3): How far to move the object from its current position.
+
+Outputs:
+- Exit (Flow): The next node to execute.
+
+Usage Example:
+- In this example, we create grid-based movement by translating the object 1 unit each time a movement input is pressed.
+
+![Translate Example](./Images/TranslateExample.png)
+
+### Set Local Scale
 Sets the specified object’s scale, relative to its parent. There is no Set Scale function, but this node should cover all of your needs.
 
 ![Set Local Scale](./Images/Set%20Local%20Scale%20Node.png)
@@ -832,7 +853,7 @@ Usage Examples:
 
 ![Get Delta Time Example](./Images/GetDeltaTimeExample.png)
 
-### Per Second ##
+### Per Second
 Scales a floating point value by Delta Time. Effectively, this converts a per-frame value into a per-second value. This is most easily communicated with an example:
 
 If you used the Translate node to move an object left by 1 unit, then executed it in the Update event, it would move left by 1 unit every frame. At 60 fps, it would move 60 units per second (by most metrics, too fast). If you passed that 1 unit through the Per Second node before translating, it would automatically scale the value so that the object would move left by 1 unit per second, instead of 1 unit per frame.
@@ -859,7 +880,7 @@ Usage Examples:
 
 A Vector 2 is a representation of a 2D direction or a point. It’s basically just a pair of numbers, representing an x and y value. Be sure to distinguish between vectors and coordinates, as Vector 2s are used to represent both. Vectors represent directions, while coordinates represent positions.
 
-### Get Magnitude ##
+### Get Magnitude
 Gets the magnitude of a Vector 2. The magnitude is the length of the vector, represented as a singular number.
 
 ![Get Magnitude](./Images/Get%20Magnitude%20Node.png)
@@ -875,7 +896,7 @@ Usage Examples:
 
 ![Get Magnitude Example](./Images/GetMagnitudeExample.png)
 
-### Get Normalized ##
+### Get Normalized
 Sets a vector’s magnitude to 1, whilst retaining its direction. We tend to want to normalise vectors when comparing or modifying them, as it brings them all to a consistent length while retaining their direction. Imagine trying to change the magnitude of a vector from 3.21511573 to 5. It would probably be easier to normalise it and multiply it by 5 than it would be to scale that starting value.
 
 Note that this is specifically the Vector2: Get Normalized node. There are other similarly-named nodes that do different things.
@@ -895,11 +916,30 @@ Usage Example:
 
 ![Get Normalized Example](./Images/GetNormalizedExample.png)
 
+### Signed Angle
+Calculates the angle between a pair of vectors in degrees. Vectors are relative to the object's position.
+
+![Signed Angle](./Images/SignedAngle.png)
+
+Inputs: 
+- Invoke (Flow): The node to execute before this one.
+- From (Vector 2): The first vector to calculate with.
+- To (Vector 2): The second vector to calculate with.
+
+Outputs: 
+- Exit (Flow): The next node to execute.
+- Result (Float): The angle between the two vectors in degrees.
+
+Usage Example: 
+- In this example, we've created an object that always points toward a target. It uses this node to calculate the direction it should be facing. It could be used to allow enemies to aim or to make npcs that always face the player.
+
+![Signed Angle Example](./Images/SignedAngleExample.png)
+
 ---
 ## Debug
 This is a collection of functions and nodes to help visualise and debug your scripts in various ways. Oftentimes, large parts of your scripts may be completely opaque, making it very hard to understand what’s going on (though, this is largely alleviated by the visual nature of visual scripting). You can use these nodes to print things in the console or draw things on your screen.
 
-### Log ##
+### Log
 Prints a specified object to the console. You can print anything, as long as it can be represented as text.
 
 ![Log](./Images/Debug%20Log%20Node.png)
@@ -921,7 +961,7 @@ Usage Example:
 ## Custom Nodes
 These nodes are not a part of the default Unity installation. We’ve provided them to you as part of COMP1151 as additional utilities or to simplify more advanced actions. These are here to make your life easier at this early stage of your game development journey, so have a go and see what you can do with them.
 
-### Translate Rigidbody 2D ##
+### Translate Rigidbody 2D
 Moves an object by a specified amount each time this node is executed. Note the difference between translation and setting an object’s position. Translation moves an object from its current position, while setting an object’s position effectively teleports it.
 
 Note: A Rigidbody2D component is required on the rotating object.
@@ -942,7 +982,7 @@ Usage Example:
 
 ![Translate Rigidbody2D Example](./Images/TranslateRigidbody2DExample.png)
 
-### Rotate Rigidbody 2D ##
+### Rotate Rigidbody 2D
 Applies a specified rotation to a GameObject with a Rigidbody2D each time this node is executed. Note that applying a rotation and setting a rotation are distinct. Applying a rotation will add to an object’s current rotation, while setting a rotation will directly set it to a specific angle. As this variant works with rigidbodies, it will respect physical collisions, meaning its rotation will be stopped or slowed if rotation causes it to collide with something.
 
 Note: A Rigidbody2D component is required on the rotating object.
@@ -962,7 +1002,7 @@ Usage Example:
 
 ![Rotate Rigidbody 2D Example](./Images/RotateRigidbody2DExample.png)
 
-### Rotate Transform 2D ##
+### Rotate Transform 2D
 Applies a specified rotation to a GameObject each time this node is executed. Note that applying a rotation and setting a rotation are distinct. Applying a rotation will add to an object’s current rotation, while setting a rotation will directly set it to a specific angle. As this variant does not use the object’s Rigidbody, it does not account for physical collisions when rotating.
 
 ![Rotate Transform 2D](./Images/RotateTransform2D.png)
@@ -980,7 +1020,26 @@ Usage Example:
 
 ![Rotate Transform 2D Example](./Images/RotateTransform2DExample.png)
 
-### Is On Layer ##
+### Set Rotation Transform
+Sets the rotation of a specified Transform to the input angle. Note that applying a rotation and setting a rotation are distinct. Applying a rotation will add to an object’s current rotation, while setting a rotation will directly set it to a specific angle.
+
+![Set Rotation Transform](./Images/SetRotationTransform.png)
+
+Inputs:
+- Input Trigger (Flow): The node to execute before this one.
+- Transform (Transform): The object to rotate. If left empty, it applies to the object the script is attached to.
+- Angle (Float): The angle to rotate to.
+- Space (Space): Whether to set rotation relative to the world or relative to self.
+
+Outputs:
+- Output Trigger (Flow): The next node to execute.
+
+Usage Example:
+- In this example, we're creating the behaviour for an enemy that periodically turns and looks in each of the four cardinal directions. We might not want the enemy to smoothly rotation, so instead, we make it "snap" to each direction when it turns.
+
+![Set Rotation Transform Example](./Images/SetRotationTransformExample.png)
+
+### Is On Layer
 Checks if an object is on a specified layer.
 
 ![Is On Layer](./Images/IsOnLayer.png)
